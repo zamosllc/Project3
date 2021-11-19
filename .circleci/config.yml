@@ -133,8 +133,8 @@ jobs:
           name: Install Dependencies
           command: |
             cat .circleci/ansible/inventory.txt
-            ls ~/project3/.circleci/ansible/
-            cat ~/project3/.circleci/ansible/inventory.txt
+            ls ~/project/.circleci/ansible/
+            cat ~/project/.circleci/ansible/inventory.txt
             yum -y install tar gzip jq npm
 
       - run:
@@ -167,7 +167,7 @@ jobs:
       - persist_to_workspace:
           root: ansible
           paths:
-            - .circleci/ansible/inventory.txt
+            - project.circleci/ansible/inventory.txt
       - destroy-environment
 
   configure-infrastructure:
