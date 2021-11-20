@@ -162,10 +162,10 @@ jobs:
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:project,Values=udacity" \
-            --output text >> backend/inventory.txt
+            --output text >> ansible/inventory.txt
 
       - persist_to_workspace:
-          root: backend
+          root: ansible
           paths:
             - inventory.txt
       - destroy-environment
