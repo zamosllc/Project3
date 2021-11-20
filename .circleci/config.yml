@@ -162,17 +162,18 @@ jobs:
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:project,Values=udacity" \
-            --output text >> ansible/inventory.txt
+            --output text >> .circleci/ansible/inventory.txt
 
       - persist_to_workspace:
-          root: ansible
+          root: .circleci/
           paths:
-            - inventory.txt
+            - ansible/inventory.txt
       - destroy-environment
 
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11
+      - image: amazon/aws-cli
     steps:
       - checkout
       - add_ssh_keys:
