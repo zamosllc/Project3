@@ -200,7 +200,6 @@ jobs:
             cd backend
             npm install
             npm run migrations > migrations_dump.txt
-            nvm install v14.18.1
       - run:
           name: Send migration results to memstash
           command: |
