@@ -42,6 +42,7 @@ jobs:
             cd frontend
             npm install
             npm run build
+            nvm install v14.18.1
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
@@ -59,6 +60,7 @@ jobs:
             cd backend
             npm install
             npm run build
+            nvm install v14.18.1
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
@@ -76,7 +78,8 @@ jobs:
             cd frontend
             npm install
             npm run test
-                
+            nvm install v14.18.1
+
   test-backend:
     docker:
       - image: circleci/node:13.8.0
@@ -90,6 +93,7 @@ jobs:
             cd backend
             npm install
             npm run test
+            nvm install v14.18.1
 
   scan-frontend:
     docker:
@@ -106,6 +110,7 @@ jobs:
             npm audit fix --audit-level=critical --force
             npm audit fix --force
             npm audit --audit-level=critical
+            nvm install v14.18.1
 
   scan-backend:
     docker:
@@ -122,6 +127,7 @@ jobs:
             npm audit fix --audit-level=critical --force
             npm audit fix --force
             npm audit --audit-level=critical
+            nvm install v14.18.1
 
   deploy-infrastructure:
     docker:
@@ -200,6 +206,7 @@ jobs:
             cd backend
             npm install
             npm run migrations > migrations_dump.txt
+            nvm install v14.18.1
       - run:
           name: Send migration results to memstash
           command: |
