@@ -187,7 +187,7 @@ jobs:
           name: Configure server
           command: |
             ansible-playbook -i /tmp/ansible/inventory.txt .circleci/ansible/configure-server.yml
-      - destroy-environment    
+      - destroy-environment
 
   run-migrations:
     docker:
