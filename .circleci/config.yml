@@ -284,17 +284,6 @@ jobs:
             apk add --update curl nodejs npm
             pip install awscli
       - run:
-          name: Get backend url
-          command: |
-            export API_URL="http://${BACKEND_IP}:3030"
-            echo "${API_URL}"
-            if curl "${API_URL}/api/status" | grep "ok"
-            then
-                return 0
-            else
-                return 1
-            fi
-      - run:
           name: Backend smoke test.
           command: |
             export BACKEND_URL=$(curl -H "token: 817f662a-e732-4a62-87ae-19e812bb83ce" --request GET https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID:0:7})
@@ -311,7 +300,7 @@ jobs:
                  return 1
              fi
       - destroy-environment 
-
+      - revert-migrations
 
 workflows:
   default:
