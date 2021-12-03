@@ -286,7 +286,7 @@ jobs:
       - run:
           name: Backend smoke test.
           command: |
-            export BACKEND_URL=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=<<the value of your tag>>" --output text)
+            export BACKEND_URL=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:Name,Values=udapeople" --output text)
             echo http://${BACKEND_URL}:3030/api/status
             if 
               curl -s http://${BACKEND_URL}:3030/api/status | grep "ok"
