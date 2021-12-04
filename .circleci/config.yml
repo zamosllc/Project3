@@ -204,7 +204,7 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-              curl -H "Content-Type: text/plain" -H "token: 7933fe63-4687-4fa1-8426-aa25aa1730ec" --request PUT --data "1" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID:0:7}
+              curl -H "Content-Type: text/plain" -H "token: 817f662a-e732-4a62-87ae-19e812bb83ce" --request PUT --data "1" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID:0:7}
             fi
       - destroy-environment
 
@@ -285,7 +285,7 @@ jobs:
       - run:
           name: Get backend url
           command: |            
-            curl -H "token: 7933fe63-4687-4fa1-8426-aa25aa1730ec" --request PUT --data "1" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID:0:7} \
+            curl -H "token: 817f662a-e732-4a62-87ae-19e812bb83ce" --request PUT --data "1" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID:0:7} \
             --request GET https://api.memstash.io/values/backendurl > backend-url.txt            
       - run:
           name: Backend smoke test.
