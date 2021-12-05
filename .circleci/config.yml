@@ -204,7 +204,7 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-              curl -H "Content-Type: text/plain" -H "token: 817f662a-e732-4a62-87ae-19e812bb83ce" --request PUT --data "1" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID:0:7}
+              curl -H "Content-Type: text/plain" -H "token: 817f662a-e732-4a62-87ae-19e812bb83ce" --request PUT --data "1" https://api.memstash.io/values/udapeople_${CIRCLE_WORKFLOW_ID:0:7}
             fi
       - destroy-environment
       - revert-migrations
@@ -282,20 +282,12 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update curl nodejs npm
-            pip install awscli
-      - run:
-          name: Get backend url
-          command: |            
-            curl -H "token: 817f662a-e732-4a62-87ae-19e812bb83ce" --request PUT --data "1" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID:0:7} \
-            --request GET https://api.memstash.io/values/backendurl > backend-url.txt            
+            pip install awscli        
       - run:
           name: Backend smoke test.
           command: |
-            export BACKEND_URL=$(aws ec2 describe-instances \
-            --filters "Name=tag:Name,Values=udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
-            --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text)
-            echo http://${BACKEND_URL}:3030/api/status
+            export BACKEND_IP=$curl -H "token: 817f662a-e732-4a62-87ae-19e812bb83ce" --request GET https://api.memstash.io/values/udapeople_${CIRCLE_WORKFLOW_ID:0:7}-BackendIP)
+            echo BACKEND_URL: http://${BACKEND_IP}:3030/api/status
               if 
                  curl -s http://${BACKEND_URL}:3030/api/status | grep "ok"
                then
