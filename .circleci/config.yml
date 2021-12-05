@@ -190,14 +190,13 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0
+      - image: circleci/node:14.18.1
     steps:
       - checkout
       - run:
           name: Run migrations
           command: |
             cd backend
-            nvm install v14.18.1
             npm install
             npm run migrations > migrations_dump.txt
       - run:
