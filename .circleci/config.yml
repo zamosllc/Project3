@@ -286,11 +286,14 @@ jobs:
       - run:
           name: Backend smoke test.
           command: |
-            export BACKEND_IP=$(curl -H "token: 817f662a-e732-4a62-87ae-19e812bb83ce" --request GET https://api.memstash.io/values/udapeople_${CIRCLE_WORKFLOW_ID:0:7}-BackendIP)
-            export BACKEND_URL=$(aws ec2 describe-instances \
-            --filters "Name=tag:Name,Values=udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
-            --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text)            
+            export BACKEND_IP=$(aws ec2 --region us-east-1 describe-instances \
+                  --filters Name=instance-state-name,Values=running Name=tag:Name,Values=udapeople-${CIRCLE_WORKFLOW_ID:0:7} \
+                  --query 'Reservations[*].Instances[*].PublicIpAddress' \
+                  --output text)            
+            export BACKEND_URL=$(aws ec2 --region us-east-1 describe-instances \
+                  --filters "Name=tag:Name,Values=udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
+                  --query 'Reservations[*].Instances[*].PublicIpAddress' \
+                  --output text)        
             echo BACKEND_URL: http://${BACKEND_IP}:3030/api/status
               if 
                  curl -s http://${BACKEND_URL}:3030/api/status | grep "ok"
