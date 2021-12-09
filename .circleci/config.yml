@@ -314,7 +314,6 @@ jobs:
                  return 1
              fi
 
-
   cloudfront-update:
     docker:
       - image: amazon/aws-cli
