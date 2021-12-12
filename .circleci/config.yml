@@ -272,12 +272,12 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
-            echo [all] > .circleci/ansible/inventory.txt
+            echo [all] > inventory.txt
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:project,Values=udapeople" \
-            --output text >> .circleci/ansible/inventory.txt
-            cat .circleci/ansible/inventory.txt
+            --output text >> inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml
       - destroy-environment  
 
   smoke-test:
