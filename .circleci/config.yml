@@ -271,7 +271,7 @@ jobs:
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             ansible-playbook -i inventory.txt deploy-backend.yml
-            echo [all] > inventory.txt
+            echo [web] > inventory.txt
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:project,Values=udapeople" \
